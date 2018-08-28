@@ -28,10 +28,10 @@ SELECT
 FROM accredited_cert_info aci_1
   LEFT JOIN accredited_cert_info aci_2
     ON aci_2.location = aci_1.location
-    AND (aci_2.insertDateTime >= SUBDATE(NOW(), INTERVAL 0 MINUTE) OR aci_2.active = 1)
+    AND (aci_2.insertDateTime >= SUBDATE(NOW(), INTERVAL %s MINUTE) OR aci_2.active = 1)
 WHERE aci_1.active = 0
 AND aci_1.archive = 0
-AND aci_1.insertDateTime < SUBDATE(NOW(), INTERVAL 0 MINUTE)
+AND aci_1.insertDateTime < SUBDATE(NOW(), INTERVAL %s MINUTE)
 HAVING aci_2.location IS NULL
 ) AS tmp
 ;'''
