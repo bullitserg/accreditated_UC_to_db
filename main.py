@@ -97,9 +97,6 @@ def insert_worker(force=False):
 def delete_worker(minutes=d_minutes):
     cn.connect()
     locations_for_delete = cn.execute_query(get_locations_query % (minutes, minutes))
-    if not locations_for_delete:
-        cn.disconnect()
-        return
 
     for location in locations_for_delete:
         try:
