@@ -29,9 +29,9 @@ FROM accredited_cert_info aci_1
   LEFT JOIN accredited_cert_info aci_2
     ON aci_2.location = aci_1.location
     AND aci_2.insertDateTime >= SUBDATE(NOW(), INTERVAL %s MINUTE)
-WHERE aci_1.active = 1
-AND aci_1.insertDateTime < SUBDATE(NOW(), INTERVAL %s MINUTE)
+WHERE aci_1.active = 0
 AND aci_1.archive = 0
+AND aci_1.insertDateTime < SUBDATE(NOW(), INTERVAL %s MINUTE)
 HAVING aci_2.location IS NULL
 ) AS tmp
 ;'''
@@ -40,5 +40,6 @@ HAVING aci_2.location IS NULL
 delete_old_records_query = '''DELETE FROM accredited_cert_info
   WHERE insertDatetime < SUBDATE(NOW(), INTERVAL %s MINUTE)
   AND archive = 0
-  AND active = 1
+  AND active = 0
 ;'''
+
